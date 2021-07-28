@@ -1,4 +1,4 @@
-export const createSiteMenuTemplate = () => (
+export const createMainNavigationTemplate = () => (
   `<nav class="main-navigation">
     <div class="main-navigation__items">
       <a href="#all" class="main-navigation__item">All movies</a>
