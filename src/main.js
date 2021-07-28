@@ -7,7 +7,7 @@ import {createFilmDetailsTemplate} from './view/film-details';
 const FILMS_CARDS_COUNT = 5;
 
 const render = (container, template, place) => {
-  container.inserAdjacentHTML(place, template);
+  container.insertAdjacentHTML(place, template);
 };
 
 const siteHeaderElement = document.querySelector('.header');
