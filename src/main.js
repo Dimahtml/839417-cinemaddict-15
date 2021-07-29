@@ -1,9 +1,9 @@
 import {createProfileRatingTemplate} from './view/profile-rating.js';
 import {createMainNavigationTemplate} from './view/main-navigation.js';
 import {createSortMenuTemplate} from './view/sort.js';
-import {createOverallFilmsListContainer} from './view/overall-films-list-container.js';
-import {createTopRatedFilmsContainer} from './view/top-rated-container.js';
-import {createMostCommentedFilmsContainer} from './view/most-commented-container.js';
+import {createOverallFilmsListTemplate} from './view/overall-films-list-container.js';
+import {createTopRatedFilmsTemplate} from './view/top-rated-container.js';
+import {createMostCommentedFilmsTemplate} from './view/most-commented-container.js';
 import {createFilmCardTemplate} from './view/film-card.js';
 import {createShowMoreTemplate} from './view/show-more-button.js';
 import {createFilmDetailsTemplate} from './view/film-details.js';
@@ -11,7 +11,7 @@ import {createFilmDetailsTemplate} from './view/film-details.js';
 const FILMS_CARDS_COUNT = 5;
 const TOP_RATED_FILMS_CARDS_COUNT = 2;
 
-const render = (container, template, place) => {
+const render = (container, template, place = 'beforeend') => {
   container.insertAdjacentHTML(place, template);
 };
 
@@ -22,7 +22,7 @@ const siteFooterElement = document.querySelector('.footer');
 render(siteHeaderElement, createProfileRatingTemplate(), 'beforeend');
 render(siteMainElement, createMainNavigationTemplate(), 'beforeend');
 render(siteMainElement, createSortMenuTemplate(), 'beforeend');
-render(siteMainElement, createOverallFilmsListContainer(), 'beforeend');
+render(siteMainElement, createOverallFilmsListTemplate(), 'beforeend');
 
 // контейнер для карточек всех фильмов, включая топ-фильмы
 const overallFilmsContainer = document.querySelector('.films');
@@ -38,8 +38,8 @@ for (let i = 0; i < FILMS_CARDS_COUNT; i++) {
 }
 
 render(sortedFilmsList, createShowMoreTemplate(), 'beforeend');
-render(overallFilmsContainer, createTopRatedFilmsContainer(), 'beforeend');
-render(overallFilmsContainer, createMostCommentedFilmsContainer(), 'beforeend');
+render(overallFilmsContainer, createTopRatedFilmsTemplate(), 'beforeend');
+render(overallFilmsContainer, createMostCommentedFilmsTemplate(), 'beforeend');
 
 const extraFilmsContainers = document.querySelectorAll('.films-list--extra');
 const topRatedContainerElement = extraFilmsContainers[0].querySelector('.films-list__container');
