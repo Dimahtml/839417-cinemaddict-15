@@ -19,10 +19,10 @@ const siteHeaderElement = document.querySelector('.header');
 const siteMainElement = document.querySelector('.main');
 const siteFooterElement = document.querySelector('.footer');
 
-render(siteHeaderElement, createProfileRatingTemplate(), 'beforeend');
-render(siteMainElement, createMainNavigationTemplate(), 'beforeend');
-render(siteMainElement, createSortMenuTemplate(), 'beforeend');
-render(siteMainElement, createOverallFilmsListTemplate(), 'beforeend');
+render(siteHeaderElement, createProfileRatingTemplate());
+render(siteMainElement, createMainNavigationTemplate());
+render(siteMainElement, createSortMenuTemplate());
+render(siteMainElement, createOverallFilmsListTemplate());
 
 // контейнер для карточек всех фильмов, включая топ-фильмы
 const overallFilmsContainer = document.querySelector('.films');
@@ -34,23 +34,23 @@ const sortedFilmsList = overallFilmsContainer.querySelector('.films-list');
 const sortedFilmsContainer = document.querySelector('.films-list__container');
 
 for (let i = 0; i < FILMS_CARDS_COUNT; i++) {
-  render(sortedFilmsContainer, createFilmCardTemplate(), 'beforeend');
+  render(sortedFilmsContainer, createFilmCardTemplate());
 }
 
-render(sortedFilmsList, createShowMoreTemplate(), 'beforeend');
-render(overallFilmsContainer, createTopRatedFilmsTemplate(), 'beforeend');
-render(overallFilmsContainer, createMostCommentedFilmsTemplate(), 'beforeend');
+render(sortedFilmsList, createShowMoreTemplate());
+render(overallFilmsContainer, createTopRatedFilmsTemplate());
+render(overallFilmsContainer, createMostCommentedFilmsTemplate());
 
 const extraFilmsContainers = document.querySelectorAll('.films-list--extra');
 const topRatedContainerElement = extraFilmsContainers[0].querySelector('.films-list__container');
 const mostCommentedContainerElement = extraFilmsContainers[1].querySelector('.films-list__container');
 
 for (let i = 0; i < TOP_RATED_FILMS_CARDS_COUNT; i++) {
-  render(topRatedContainerElement, createFilmCardTemplate(), 'beforeend');
+  render(topRatedContainerElement, createFilmCardTemplate());
 }
 
 for (let i = 0; i < TOP_RATED_FILMS_CARDS_COUNT; i++) {
-  render(mostCommentedContainerElement, createFilmCardTemplate(), 'beforeend');
+  render(mostCommentedContainerElement, createFilmCardTemplate());
 }
 
 render(siteFooterElement, createFilmDetailsTemplate(), 'afterend');
