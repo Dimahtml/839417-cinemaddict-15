@@ -7,6 +7,7 @@ import {createMostCommentedFilmsTemplate} from './view/most-commented-container.
 import {createFilmCardTemplate} from './view/film-card.js';
 import {createShowMoreTemplate} from './view/show-more-button.js';
 import {createFilmDetailsTemplate} from './view/film-details.js';
+import {generateTask} from './mock/task.js';
 
 const FILMS_CARDS_COUNT = 5;
 const TOP_RATED_FILMS_CARDS_COUNT = 2;
@@ -54,3 +55,5 @@ for (let i = 0; i < TOP_RATED_FILMS_CARDS_COUNT; i++) {
 }
 
 render(siteFooterElement, createFilmDetailsTemplate(), 'afterend');
+
+console.log(generateTask());
