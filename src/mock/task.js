@@ -1,11 +1,6 @@
-// Функция из интернета по генерации случайного числа из диапазона
-// Источник - https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_random
-const getRandomInteger = (a = 0, b = 1) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-
-  return Math.floor(lower + Math.random() * (upper - lower + 1));
-};
+/**
+ * Константы.
+ */
 
 const MIN_DESCRIPTION_AMOUNT = 1;
 const MAX_DESCRIPTION_AMOUNT = 5;
@@ -19,7 +14,10 @@ const MIN_GENRES_AMOUNT = 1;
 const MAX_GENRES_AMOUNT = 2;
 const MIN_COMMENTS_AMOUNT = 0;
 const MAX_COMMENTS_AMOUNT = 5;
-
+const MIN_MOVIE_ID = 1;
+const MAX_MOVIE_ID = 1000;
+const MIN_COMMENT_ID = 1;
+const MAX_COMMENT_ID = 1000;
 const ACTORS = [
   'Robert De Niro',
   'Al Pacino',
@@ -36,7 +34,6 @@ const ACTORS = [
   'Milla Jovovich',
   'Bruce Willis',
 ];
-
 const WRITERS = [
   'Damien Chazelle',
   'Drew Goddard',
@@ -47,7 +44,6 @@ const WRITERS = [
   'Woody Allen',
   'James Cameron',
 ];
-
 const DESCRIPTIONS = [
   'Lorem ipsum dolor sit amet consectetur adipiscing elit.',
   'Cras aliquet varius magna, non porta ligula feugiat eget.',
@@ -61,7 +57,6 @@ const DESCRIPTIONS = [
   'Nunc fermentum tortor ac porta dapibus.',
   'In rutrum ac purus sit amet tempus.',
 ];
-
 const TITLES = [
   'made-for-each-other',
   'popeye-meets-sinbad',
@@ -71,7 +66,6 @@ const TITLES = [
   'the-great-flamarion',
   'the-man-with-the-golden-arm',
 ];
-
 const POSTERS = [
   '../public/images/posters/made-for-each-other.png',
   '../public/images/posters/popeye-meets-sinbad.png',
@@ -81,7 +75,6 @@ const POSTERS = [
   '../public/images/posters/the-great-flamarion.jpg',
   '../public/images/posters/the-man-with-the-golden-arm.jpg',
 ];
-
 const AGES = [
   '0+',
   '6+',
@@ -89,7 +82,6 @@ const AGES = [
   '16+',
   '18+',
 ];
-
 const DIRECTORS = [
   'Steven Spielberg',
   'Martin Scorsese',
@@ -98,7 +90,6 @@ const DIRECTORS = [
   'James Cameron',
   'Guy Ritchie',
 ];
-
 const COUNTRIES = [
   'USA',
   'Russia',
@@ -107,7 +98,6 @@ const COUNTRIES = [
   'Great Britain',
   'Italy',
 ];
-
 const GENRES = [
   'Drama',
   'Thriller',
@@ -118,7 +108,6 @@ const GENRES = [
   'Musical',
   'Mystery',
 ];
-
 const COMMENTS = {
   emotions: [
     'smile',
@@ -131,6 +120,10 @@ const COMMENTS = {
     'Booooooooooring',
     'Very very old. Meh',
     'Almost two hours? Seriously?',
+    'The best film in the world',
+    'not bad',
+    'good actors but poor story',
+    'soundtrack in the film is so coooooool! La-la-laaaa-pam-paraaaam!',
   ],
   authors: [
     'Tim Macoveev',
@@ -152,6 +145,19 @@ const COMMENTS = {
   ],
 };
 
+/**
+ * Утилитарные и общие функции.
+ */
+
+//  Функция из интернета по генерации случайного числа из диапазона
+// Источник - https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_random
+const getRandomInteger = (a = 0, b = 1) => {
+  const lower = Math.ceil(Math.min(a, b));
+  const upper = Math.floor(Math.max(a, b));
+
+  return Math.floor(lower + Math.random() * (upper - lower + 1));
+};
+
 const getRandomItems = (array, minItemsAmount, maxItemsAmount) => {
   const arrayCopied = array.slice();
   const itemsAmount = getRandomInteger(minItemsAmount, maxItemsAmount);
@@ -171,7 +177,11 @@ const getOneRandomItem = (array) => {
   return array[itemIndex];
 };
 
-const getRandomBoolean = () => Boolean(getRandomInteger(0, 1));
+/**
+ * Функции, которые генерируют данные.
+ */
+
+const getMovieId = () => getRandomInteger(MIN_MOVIE_ID, MAX_MOVIE_ID);
 
 const generateDescription = () => {
   const arrayDescriptions = getRandomItems(DESCRIPTIONS, MIN_DESCRIPTION_AMOUNT, MAX_DESCRIPTION_AMOUNT);
@@ -184,6 +194,7 @@ const generateRuntime = () => getRandomInteger(MIN_MOVIE_DURATION, MAX_MOVIE_DUR
 
 const generateNewComment = () => (
   {
+    id: getRandomInteger(MIN_COMMENT_ID, MAX_COMMENT_ID),
     emotion: getOneRandomItem(COMMENTS.emotions),
     date: 'today',
     author: getOneRandomItem(COMMENTS.authors),
@@ -194,9 +205,7 @@ const generateNewComment = () => (
 const generateComments = () => {
   const commentsAmount = getRandomInteger(MIN_COMMENTS_AMOUNT, MAX_COMMENTS_AMOUNT);
   const comments = [];
-  console.log(`commentsAmount = ${commentsAmount}`);
   for (let i = 0; i < commentsAmount; i++) {
-    console.log(i);
     const newComment = generateNewComment();
     comments.push(newComment);
   }
@@ -204,26 +213,56 @@ const generateComments = () => {
   return comments;
 };
 
+// Здесь аргумент comments - это массив объектов. Каждый comment - это объект.
+
+const getCommentsIDs = (comments) => {
+  const commentsIDs = [];
+  for (const comment of comments) {
+    commentsIDs.push(comment.id);
+  }
+  return commentsIDs;
+};
+
+/**
+ * Генерация структуры данных, описывающих фильм.
+ */
+
 export const generateTask = () => {
   const currentTitle = getOneRandomItem(TITLES);
+  const isWatched = Boolean(getRandomInteger(0, 1));
+
+  const getWatchingDate = () => {
+    const result = isWatched ? 'yesterday 01-08-2021' : '';
+    return result;
+  };
+
+  const comments = generateComments();
 
   return {
-    title: currentTitle,
-    titlelOriginal: currentTitle,
-    poster: getOneRandomItem(POSTERS),
-    age: getOneRandomItem(AGES),
-    rating: generateRating(),
-    director: getOneRandomItem(DIRECTORS),
-    writers: getRandomItems(WRITERS, MIN_WRITERS_AMOUNT, MAX_WRITERS_AMOUNT),
-    actors: getRandomItems(ACTORS, MIN_ACTORS_AMOUNT, MAX_ACTORS_AMOUNT),
-    releaseDate: '',
-    runtime: generateRuntime(),
-    country: getOneRandomItem(COUNTRIES),
-    genres: getRandomItems(GENRES, MIN_GENRES_AMOUNT, MAX_GENRES_AMOUNT),
-    description: generateDescription(),
-    comments: generateComments(),
-    isInWatchlist: getRandomBoolean(),
-    isWatched: getRandomBoolean(),
-    isFavorite: getRandomBoolean(),
+    id: getMovieId(),
+    comments: getCommentsIDs(comments),
+    filmInfo: {
+      title: currentTitle,
+      titleAlternative: currentTitle,
+      ratingTotal: generateRating(),
+      poster: getOneRandomItem(POSTERS),
+      ageRating: getOneRandomItem(AGES),
+      director: getOneRandomItem(DIRECTORS),
+      writers: getRandomItems(WRITERS, MIN_WRITERS_AMOUNT, MAX_WRITERS_AMOUNT),
+      actors: getRandomItems(ACTORS, MIN_ACTORS_AMOUNT, MAX_ACTORS_AMOUNT),
+      release: {
+        date: '',
+        releaseCountry: getOneRandomItem(COUNTRIES),
+      },
+      runtime: generateRuntime(),
+      genres: getRandomItems(GENRES, MIN_GENRES_AMOUNT, MAX_GENRES_AMOUNT),
+      description: generateDescription(),
+    },
+    userDetails: {
+      isInWatchlist: Boolean(getRandomInteger(0, 1)),
+      isWatched,
+      watchingDate: getWatchingDate(),
+      isFavorite: Boolean(getRandomInteger(0, 1)),
+    },
   };
 };
