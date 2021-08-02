@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 /**
  * Константы.
  */
@@ -18,6 +20,12 @@ const MIN_MOVIE_ID = 1;
 const MAX_MOVIE_ID = 1000;
 const MIN_COMMENT_ID = 1;
 const MAX_COMMENT_ID = 1000;
+const MIN_MOVIE_RELEASE_DAYS_SUBTRACT = 10;
+const MAX_MOVIE_RELEASE_DAYS_SUBTRACT = 30000;
+const MIN_USER_WATCH_DAYS_SUBTRACT = 1;
+const MAX_USER_WATCH_DAYS_SUBTRACT = 1000;
+const MIN_POST_COMMENT_MINUTES_SUBTRACT = 10;
+const MAX_POST_COMMENT_MINUTES_SUBTRACT = 10080;
 const ACTORS = [
   'Robert De Niro',
   'Al Pacino',
@@ -178,6 +186,28 @@ const getOneRandomItem = (array) => {
 };
 
 /**
+ * Работа с датами.
+ */
+
+const getMovieReleaseDate = () => {
+  // получаем случайное количество дней, прошедшее с момента выхода фильма
+  const dateSubtract = getRandomInteger(MIN_MOVIE_RELEASE_DAYS_SUBTRACT, MAX_MOVIE_RELEASE_DAYS_SUBTRACT);
+  return dayjs().subtract(dateSubtract, 'day').format('D MMMM YYYY');
+};
+
+const getWatchingMovieDate = () => {
+  // получаем случайное количество дней, прошедшее с момента просмотра фильма
+  const dateSubtract = getRandomInteger(MIN_USER_WATCH_DAYS_SUBTRACT, MAX_USER_WATCH_DAYS_SUBTRACT);
+  return dayjs().subtract(dateSubtract, 'day').format('D MMMM YYYY');
+};
+
+const getCommentPostingDate = () => {
+  // получаем случайное количество дней, прошедшее с момента написания комментария
+  const dateSubtract = getRandomInteger(MIN_POST_COMMENT_MINUTES_SUBTRACT, MAX_POST_COMMENT_MINUTES_SUBTRACT);
+  return dayjs().subtract(dateSubtract, 'minute').format('YYYY/MM/DD HH:mm');
+};
+
+/**
  * Функции, которые генерируют данные.
  */
 
@@ -196,7 +226,7 @@ const generateNewComment = () => (
   {
     id: getRandomInteger(MIN_COMMENT_ID, MAX_COMMENT_ID),
     emotion: getOneRandomItem(COMMENTS.emotions),
-    date: 'today',
+    date: getCommentPostingDate(),
     author: getOneRandomItem(COMMENTS.authors),
     message: getOneRandomItem(COMMENTS.messages),
   }
@@ -214,7 +244,6 @@ const generateComments = () => {
 };
 
 // Здесь аргумент comments - это массив объектов. Каждый comment - это объект.
-
 const getCommentsIDs = (comments) => {
   const commentsIDs = [];
   for (const comment of comments) {
@@ -230,13 +259,12 @@ const getCommentsIDs = (comments) => {
 export const generateTask = () => {
   const currentTitle = getOneRandomItem(TITLES);
   const isWatched = Boolean(getRandomInteger(0, 1));
+  const comments = generateComments();
 
   const getWatchingDate = () => {
-    const result = isWatched ? 'yesterday 01-08-2021' : '';
+    const result = isWatched ? getWatchingMovieDate() : '';
     return result;
   };
-
-  const comments = generateComments();
 
   return {
     id: getMovieId(),
@@ -251,7 +279,7 @@ export const generateTask = () => {
       writers: getRandomItems(WRITERS, MIN_WRITERS_AMOUNT, MAX_WRITERS_AMOUNT),
       actors: getRandomItems(ACTORS, MIN_ACTORS_AMOUNT, MAX_ACTORS_AMOUNT),
       release: {
-        date: '',
+        date: getMovieReleaseDate(),
         releaseCountry: getOneRandomItem(COUNTRIES),
       },
       runtime: generateRuntime(),
