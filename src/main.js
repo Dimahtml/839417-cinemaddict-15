@@ -4,16 +4,16 @@ import {createSortMenuTemplate} from './view/sort.js';
 import {createOverallFilmsListTemplate} from './view/overall-films-list-container.js';
 import {createTopRatedFilmsTemplate} from './view/top-rated-container.js';
 import {createMostCommentedFilmsTemplate} from './view/most-commented-container.js';
-import {createFilmCardTemplate} from './view/film-card.js';
+import {createFilmCardTemplate} from './view/film-card-view.js';
 import {createShowMoreTemplate} from './view/show-more-button.js';
 import {createFilmDetailsTemplate} from './view/film-details.js';
-import {generateTask} from './mock/task.js';
+import {generateTask} from './mock/film-card-mock.js';
 
-const TASK_COUNT = 20;
+const FILMS_COUNT = 20;
 const FILMS_CARDS_COUNT = 5;
 const TOP_RATED_FILMS_CARDS_COUNT = 2;
 
-const tasks = new Array(TASK_COUNT).fill().map(generateTask);
+const films = new Array(FILMS_COUNT).fill().map(generateTask);
 
 const render = (container, template, place = 'beforeend') => {
   container.insertAdjacentHTML(place, template);
@@ -38,7 +38,7 @@ const sortedFilmsList = overallFilmsContainer.querySelector('.films-list');
 const sortedFilmsContainer = document.querySelector('.films-list__container');
 
 for (let i = 0; i < FILMS_CARDS_COUNT; i++) {
-  render(sortedFilmsContainer, createFilmCardTemplate());
+  render(sortedFilmsContainer, createFilmCardTemplate(films[i]));
 }
 
 render(sortedFilmsList, createShowMoreTemplate());
@@ -49,14 +49,14 @@ const extraFilmsContainers = document.querySelectorAll('.films-list--extra');
 const topRatedContainerElement = extraFilmsContainers[0].querySelector('.films-list__container');
 const mostCommentedContainerElement = extraFilmsContainers[1].querySelector('.films-list__container');
 
-for (let i = 0; i < TOP_RATED_FILMS_CARDS_COUNT; i++) {
-  render(topRatedContainerElement, createFilmCardTemplate());
-}
+// for (let i = 0; i < TOP_RATED_FILMS_CARDS_COUNT; i++) {
+//   render(topRatedContainerElement, createFilmCardTemplate());
+// }
 
-for (let i = 0; i < TOP_RATED_FILMS_CARDS_COUNT; i++) {
-  render(mostCommentedContainerElement, createFilmCardTemplate());
-}
+// for (let i = 0; i < TOP_RATED_FILMS_CARDS_COUNT; i++) {
+//   render(mostCommentedContainerElement, createFilmCardTemplate());
+// }
 
-render(siteFooterElement, createFilmDetailsTemplate(), 'afterend');
+// render(siteFooterElement, createFilmDetailsTemplate(), 'afterend');
 
-console.log(tasks);
+// console.log(films);

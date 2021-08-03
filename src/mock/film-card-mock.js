@@ -66,22 +66,22 @@ const DESCRIPTIONS = [
   'In rutrum ac purus sit amet tempus.',
 ];
 const TITLES = [
-  'made-for-each-other',
-  'popeye-meets-sinbad',
-  'sagebrush-trail',
-  'santa-claus-conquers-the-martians',
-  'the-dance-of-life',
-  'the-great-flamarion',
-  'the-man-with-the-golden-arm',
+  'Made for Each Other',
+  'Popeye the Sailor Meets Sindbad the Sailor',
+  'Sagebrush Trail',
+  'Santa Claus Conquers The Martians',
+  'The Dance of Life',
+  'The Great Flamarion',
+  'The Man with the Golden Arm',
 ];
 const POSTERS = [
-  '../public/images/posters/made-for-each-other.png',
-  '../public/images/posters/popeye-meets-sinbad.png',
-  '../public/images/posters/sagebrush-trail.jpg',
-  '../public/images/posters/santa-claus-conquers-the-martians.jpg',
-  '../public/images/posters/the-dance-of-life.jpg',
-  '../public/images/posters/the-great-flamarion.jpg',
-  '../public/images/posters/the-man-with-the-golden-arm.jpg',
+  'made-for-each-other.png',
+  'popeye-meets-sinbad.png',
+  'sagebrush-trail.jpg',
+  'santa-claus-conquers-the-martians.jpg',
+  'the-dance-of-life.jpg',
+  'the-great-flamarion.jpg',
+  'the-man-with-the-golden-arm.jpg',
 ];
 const AGES = [
   '0+',
