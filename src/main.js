@@ -9,8 +9,11 @@ import {createShowMoreTemplate} from './view/show-more-button.js';
 import {createFilmDetailsTemplate} from './view/film-details.js';
 import {generateTask} from './mock/task.js';
 
+const TASK_COUNT = 20;
 const FILMS_CARDS_COUNT = 5;
 const TOP_RATED_FILMS_CARDS_COUNT = 2;
+
+const tasks = new Array(TASK_COUNT).fill().map(generateTask);
 
 const render = (container, template, place = 'beforeend') => {
   container.insertAdjacentHTML(place, template);
@@ -56,4 +59,4 @@ for (let i = 0; i < TOP_RATED_FILMS_CARDS_COUNT; i++) {
 
 render(siteFooterElement, createFilmDetailsTemplate(), 'afterend');
 
-console.log(generateTask());
+console.log(tasks);
