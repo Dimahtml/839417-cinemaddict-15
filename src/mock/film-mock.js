@@ -13,7 +13,7 @@ const MAX_ACTORS_AMOUNT = 5;
 const MIN_MOVIE_DURATION = 10;
 const MAX_MOVIE_DURATION = 180;
 const MIN_GENRES_AMOUNT = 1;
-const MAX_GENRES_AMOUNT = 2;
+const MAX_GENRES_AMOUNT = 3;
 const MIN_COMMENTS_AMOUNT = 0;
 const MAX_COMMENTS_AMOUNT = 5;
 const MIN_MOVIE_ID = 1;
@@ -256,7 +256,7 @@ const getCommentsIDs = (comments) => {
  * Генерация структуры данных, описывающих фильм.
  */
 
-export const generateTask = () => {
+export const generateFilm = () => {
   const currentTitle = getOneRandomItem(TITLES);
   const isWatched = Boolean(getRandomInteger(0, 1));
   const comments = generateComments();
@@ -268,7 +268,7 @@ export const generateTask = () => {
 
   return {
     id: getMovieId(),
-    comments: getCommentsIDs(comments),
+    comments: comments,
     filmInfo: {
       title: currentTitle,
       titleAlternative: currentTitle,
