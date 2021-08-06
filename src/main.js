@@ -4,16 +4,19 @@ import {createSortMenuTemplate} from './view/sort.js';
 import {createOverallFilmsListTemplate} from './view/overall-films-list-container.js';
 import {createTopRatedFilmsTemplate} from './view/top-rated-container.js';
 import {createMostCommentedFilmsTemplate} from './view/most-commented-container.js';
-import {createFilmCardTemplate} from './view/film-card-view.js';
+import {createFilmCardTemplate} from './view/film-card.js';
 import {createShowMoreTemplate} from './view/show-more-button.js';
-import {createFilmDetailsTemplate} from './view/film-details-view.js';
+import {createFilmDetailsTemplate} from './view/film-details.js';
+import {createFooterStatisticTemplate} from './view/films-statistic.js';
 import {generateFilm} from './mock/film-mock.js';
+import {generateFilmsStatistic} from './mock/films-statistic-mock.js';
 
 const FILMS_COUNT = 20;
 const FILMS_CARDS_COUNT = 5;
 const TOP_RATED_FILMS_CARDS_COUNT = 2;
 
 const films = new Array(FILMS_COUNT).fill().map(generateFilm);
+const filmsStatistic = generateFilmsStatistic();
 
 const render = (container, template, place = 'beforeend') => {
   container.insertAdjacentHTML(place, template);
@@ -58,3 +61,7 @@ for (let i = 0; i < TOP_RATED_FILMS_CARDS_COUNT; i++) {
 }
 
 render(siteFooterElement, createFilmDetailsTemplate(films[0]), 'afterend');
+
+const footerStatisticElement = siteFooterElement.querySelector('.footer__statistics');
+
+render(footerStatisticElement, createFooterStatisticTemplate(filmsStatistic));
