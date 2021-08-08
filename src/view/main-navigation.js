@@ -1,19 +1,8 @@
 export const createFilterItemTemplate = (filter) => {
   const {name, count} = filter;
-  const linkName = name.toLowerCase();
-  return (`<a
-  href="#${linkName}" class="main-navigation__item">
-  ${name}
-  <span class="main-navigation__item-count">
-  ${count}
-  </span>
-  </a>`
-  );
+  return (`<a href="#${name.toLowerCase()}" class="main-navigation__item">${name}
+  <span class="main-navigation__item-count">${count}</span></a>`);
 };
-  // console.log(watchlist);
-  // #watchlist
-  // #history
-  // #favorites
 
 export const createMainNavigationTemplate = (filterItems) => {
   const filterItemsTemplate = filterItems

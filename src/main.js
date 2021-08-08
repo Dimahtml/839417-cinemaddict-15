@@ -12,8 +12,8 @@ import {generateFilter} from './mock/filter-mock.js';
 import {generateFilm} from './mock/film-mock.js';
 import {generateFilmsStatistic} from './mock/films-statistic-mock.js';
 
-const FILMS_COUNT = 20;
-const FILMS_CARDS_COUNT = 5;
+const FILMS_COUNT = 19;
+const FILMS_COUNT_PER_STEP = 5;
 const TOP_RATED_FILMS_CARDS_COUNT = 2;
 
 const films = new Array(FILMS_COUNT).fill().map(generateFilm);
@@ -42,11 +42,10 @@ const sortedFilmsList = overallFilmsContainer.querySelector('.films-list');
 // контейнер для отсортированных карточек фильмов, НЕ включая топ-фильмы
 const sortedFilmsContainer = document.querySelector('.films-list__container');
 
-for (let i = 0; i < FILMS_CARDS_COUNT; i++) {
+for (let i = 0; i < Math.min(films.length, FILMS_COUNT_PER_STEP); i++) {
   render(sortedFilmsContainer, createFilmCardTemplate(films[i]));
 }
 
-render(sortedFilmsList, createShowMoreTemplate());
 render(overallFilmsContainer, createTopRatedFilmsTemplate());
 render(overallFilmsContainer, createMostCommentedFilmsTemplate());
 
@@ -62,8 +61,30 @@ for (let i = 0; i < TOP_RATED_FILMS_CARDS_COUNT; i++) {
   render(mostCommentedContainerElement, createFilmCardTemplate(films[i]));
 }
 
-// render(siteFooterElement, createFilmDetailsTemplate(films[0]), 'afterend');
+render(siteFooterElement, createFilmDetailsTemplate(films[0]), 'afterend');
 
 const footerStatisticElement = siteFooterElement.querySelector('.footer__statistics');
 
 render(footerStatisticElement, createFooterStatisticTemplate(filmsStatistic));
+
+if (films.length > FILMS_COUNT_PER_STEP) {
+  let renderedFilmsCount = FILMS_COUNT_PER_STEP;
+
+  render(sortedFilmsList, createShowMoreTemplate());
+
+  const showMoreButton = overallFilmsContainer.querySelector('.films-list__show-more');
+
+  showMoreButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    films
+      .slice(renderedFilmsCount, renderedFilmsCount + FILMS_COUNT_PER_STEP)
+      .forEach((film) => render(sortedFilmsContainer, createFilmCardTemplate(film)));
+
+    renderedFilmsCount += FILMS_COUNT_PER_STEP;
+
+    if (renderedFilmsCount >= films.length) {
+      showMoreButton.remove();
+    }
+
+  });
+}
