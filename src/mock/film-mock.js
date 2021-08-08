@@ -5,7 +5,6 @@ import {getRandomInteger, getRandomItems, getOneRandomItem} from '../utils.js';
  * Константы.
  */
 
-const MIN_DESCRIPTION_AMOUNT = 1;
 const MAX_DESCRIPTION_AMOUNT = 5;
 const MIN_WRITERS_AMOUNT = 1;
 const MAX_WRITERS_AMOUNT = 3;
@@ -183,7 +182,7 @@ const getCommentPostingDate = () => {
 const getMovieId = () => getRandomInteger(MIN_MOVIE_ID, MAX_MOVIE_ID);
 
 const generateDescription = () => {
-  const arrayDescriptions = getRandomItems(DESCRIPTIONS, MIN_DESCRIPTION_AMOUNT, MAX_DESCRIPTION_AMOUNT);
+  const arrayDescriptions = getRandomItems(DESCRIPTIONS, 1, MAX_DESCRIPTION_AMOUNT);
   return arrayDescriptions.join(' ');
 };
 

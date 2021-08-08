@@ -42,7 +42,9 @@ const sortedFilmsList = overallFilmsContainer.querySelector('.films-list');
 // контейнер для отсортированных карточек фильмов, НЕ включая топ-фильмы
 const sortedFilmsContainer = document.querySelector('.films-list__container');
 
-for (let i = 0; i < Math.min(films.length, FILMS_COUNT_PER_STEP); i++) {
+const currentFilmsStep  = Math.min(films.length, FILMS_COUNT_PER_STEP);
+
+for (let i = 0; i < Math.min(films.length, currentFilmsStep); i++) {
   render(sortedFilmsContainer, createFilmCardTemplate(films[i]));
 }
 
