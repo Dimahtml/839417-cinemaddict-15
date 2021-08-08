@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import {getRandomInteger, getRandomItems, getOneRandomItem} from '../utils.js';
 
 /**
  * Константы.
@@ -154,38 +155,6 @@ const COMMENTS = {
 };
 
 /**
- * Утилитарные и общие функции.
- */
-
-//  Функция из интернета по генерации случайного числа из диапазона
-// Источник - https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_random
-const getRandomInteger = (a = 0, b = 1) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-
-  return Math.floor(lower + Math.random() * (upper - lower + 1));
-};
-
-const getRandomItems = (array, minItemsAmount, maxItemsAmount) => {
-  const arrayCopied = array.slice();
-  const itemsAmount = getRandomInteger(minItemsAmount, maxItemsAmount);
-  const arrayResult = [];
-
-  for (let i = 0; i < itemsAmount; i++) {
-    const itemIndex = getRandomInteger(0, arrayCopied.length - 1);
-    const currenItem = arrayCopied.splice(itemIndex, 1);
-    arrayResult.push(currenItem);
-  }
-
-  return arrayResult.flat();
-};
-
-const getOneRandomItem = (array) => {
-  const itemIndex = getRandomInteger(0, array.length - 1);
-  return array[itemIndex];
-};
-
-/**
  * Работа с датами.
  */
 
@@ -244,13 +213,14 @@ const generateComments = () => {
 };
 
 // Здесь аргумент comments - это массив объектов. Каждый comment - это объект.
-const getCommentsIDs = (comments) => {
-  const commentsIDs = [];
-  for (const comment of comments) {
-    commentsIDs.push(comment.id);
-  }
-  return commentsIDs;
-};
+// в процессе разработки функция временно не нужна
+// const getCommentsIDs = (comments) => {
+//   const commentsIDs = [];
+//   for (const comment of comments) {
+//     commentsIDs.push(comment.id);
+//   }
+//   return commentsIDs;
+// };
 
 /**
  * Генерация структуры данных, описывающих фильм.
