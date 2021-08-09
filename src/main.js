@@ -44,7 +44,7 @@ const sortedFilmsContainer = document.querySelector('.films-list__container');
 
 const currentFilmsStep  = Math.min(films.length, FILMS_COUNT_PER_STEP);
 
-for (let i = 0; i < Math.min(films.length, currentFilmsStep); i++) {
+for (let i = 0; i < currentFilmsStep; i++) {
   render(sortedFilmsContainer, createFilmCardTemplate(films[i]));
 }
 
