@@ -1,4 +1,4 @@
-import {createProfileRatingTemplate} from './view/profile-rating.js';
+import ProfileRatingView from './view/profile-rating.js';
 import {createMainNavigationTemplate} from './view/main-navigation.js';
 import {createSortMenuTemplate} from './view/sort.js';
 import {createOverallFilmsListTemplate} from './view/overall-films-list-container.js';
@@ -11,6 +11,7 @@ import {createFooterStatisticTemplate} from './view/films-statistic.js';
 import {generateFilter} from './mock/filter-mock.js';
 import {generateFilm} from './mock/film-mock.js';
 import {generateFilmsStatistic} from './mock/films-statistic-mock.js';
+import {renderTemplate, renderElement, RenderPosition} from './utils.js';
 
 const FILMS_COUNT = 19;
 const FILMS_COUNT_PER_STEP = 5;
@@ -28,7 +29,11 @@ const siteHeaderElement = document.querySelector('.header');
 const siteMainElement = document.querySelector('.main');
 const siteFooterElement = document.querySelector('.footer');
 
-render(siteHeaderElement, createProfileRatingTemplate());
+// render(siteHeaderElement, createProfileRatingTemplate());
+
+renderElement(siteHeaderElement, new ProfileRatingView().getElement(), RenderPosition.BEFOREEND);
+
+
 render(siteMainElement, createMainNavigationTemplate(filters));
 render(siteMainElement, createSortMenuTemplate());
 render(siteMainElement, createOverallFilmsListTemplate());
