@@ -1,3 +1,5 @@
+import {createElement} from '../utils.js';
+
 export const createOverallFilmsListTemplate = () => (
   `<section class="films">
     <section class="films-list">
@@ -7,3 +9,25 @@ export const createOverallFilmsListTemplate = () => (
     </section>
   </section>`
 );
+
+export default class OverallFilmsList {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createOverallFilmsListTemplate();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
