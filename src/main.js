@@ -26,6 +26,12 @@ const siteMainElement = document.querySelector('.main');
 const siteFooterElement = document.querySelector('.footer');
 
 const renderFilmDetails = (film) => {
+  // закрываем предыдущий попап, если он уже был открыт
+  const popup = document.body.querySelector('.film-details');
+  if (popup) {
+    document.body.removeChild(popup);
+  }
+
   const filmDetailsComponent = new FilmDetailsView(film).getElement();
   document.body.appendChild(filmDetailsComponent);
   document.body.classList.add('hide-overflow');
@@ -61,10 +67,10 @@ render(siteMainElement, new OverallFilmsListView().getElement(), RenderPosition.
 // контейнер для карточек всех фильмов, включая топ-фильмы
 const overallFilmsContainer = document.querySelector('.films');
 
-// контейнер для sortedFilmsContainer и кнопки ShowMore
+// контейнер для TopRated и MostCommented и кнопки ShowMore
 const sortedFilmsList = overallFilmsContainer.querySelector('.films-list');
 
-// контейнер для отсортированных карточек фильмов, НЕ включая топ-фильмы
+// контейнер для TopRated и MostCommented карточек фильмов, НЕ включая топ-фильмы
 const sortedFilmsContainer = document.querySelector('.films-list__container');
 
 const currentFilmsStep  = Math.min(films.length, FILMS_COUNT_PER_STEP);
@@ -85,7 +91,7 @@ for (let i = 0; i < TOP_RATED_FILMS_CARDS_COUNT; i++) {
 }
 
 for (let i = 0; i < TOP_RATED_FILMS_CARDS_COUNT; i++) {
-  render(mostCommentedContainerElement, new FilmCardView(films[i]).getElement(), RenderPosition.BEFOREEND);
+  renderFilm(mostCommentedContainerElement, films[i]);
 }
 
 const footerStatisticElement = siteFooterElement.querySelector('.footer__statistics');
@@ -103,7 +109,7 @@ if (films.length > FILMS_COUNT_PER_STEP) {
     evt.preventDefault();
     films
       .slice(renderedFilmsCount, renderedFilmsCount + FILMS_COUNT_PER_STEP)
-      .forEach((film) => render(sortedFilmsContainer, new FilmCardView(film).getElement(), RenderPosition.BEFOREEND));
+      .forEach((film) => renderFilm(sortedFilmsContainer, film));
 
     renderedFilmsCount += FILMS_COUNT_PER_STEP;
 
