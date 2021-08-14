@@ -46,16 +46,12 @@ const renderFilm = (filmsContainer, film) => {
   const filmComponent = new FilmCardView(film);
   render(filmsContainer, filmComponent.getElement(), RenderPosition.BEFOREEND);
 
-  filmComponent.getElement().querySelector('.film-card__poster').addEventListener('click', () => {
-    renderFilmDetails(film);
-  });
-
-  filmComponent.getElement().querySelector('.film-card__title').addEventListener('click', () => {
-    renderFilmDetails(film);
-  });
-
-  filmComponent.getElement().querySelector('.film-card__comments').addEventListener('click', () => {
-    renderFilmDetails(film);
+  filmComponent.getElement().addEventListener('click', (evt) => {
+    if (evt.target.className === 'film-card__poster' ||
+    evt.target.className === 'film-card__title' ||
+    evt.target.className === 'film-card__comments') {
+      renderFilmDetails(film);
+    }
   });
 };
 
