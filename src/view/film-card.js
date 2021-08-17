@@ -39,7 +39,6 @@ export default class FilmCard extends AbstractView {
   constructor(film) {
     super();
     this._film = film;
-    this._element = null;
   }
 
   getTemplate() {

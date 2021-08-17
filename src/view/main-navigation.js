@@ -24,7 +24,6 @@ export default class MainNavigation extends AbstractView {
   constructor(filterItems) {
     super();
     this._filterItems = filterItems;
-    this._element = null;
   }
 
   getTemplate() {
