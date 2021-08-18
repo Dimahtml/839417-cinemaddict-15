@@ -186,8 +186,6 @@ export default class FilmDetails extends AbstractView {
 
   _closeButtonClickHandler(evt) {
     evt.preventDefault();
-    // const filmDetailsComponent = new FilmDetailsView(film).getElement();
-    // document.body.appendChild(filmDetailsComponent);
     document.body.classList.add('hide-overflow');
     this._callback.closeButtonClick();
   }

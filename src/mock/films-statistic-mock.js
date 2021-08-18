@@ -1,4 +1,4 @@
-import {getRandomInteger} from '../utils.js';
+import {getRandomInteger} from '../utils/common.js';
 
 const MIN_FILMS_AMOUNT = 80000;
 const MAX_FILMS_AMOUNT = 150000;
