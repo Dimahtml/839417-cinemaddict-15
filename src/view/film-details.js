@@ -176,9 +176,24 @@ export default class FilmDetails extends AbstractView {
   constructor(film) {
     super();
     this._film = film;
+
+    this._closeButtonClickHandler = this._closeButtonClickHandler.bind(this);
   }
 
   getTemplate() {
     return createFilmDetailsTemplate(this._film);
+  }
+
+  _closeButtonClickHandler(evt) {
+    evt.preventDefault();
+    // const filmDetailsComponent = new FilmDetailsView(film).getElement();
+    // document.body.appendChild(filmDetailsComponent);
+    document.body.classList.add('hide-overflow');
+    this._callback.closeButtonClick();
+  }
+
+  setCloseButtonClickHandler(callback) {
+    this._callback.closeButtonClick = callback;
+    this.getElement().querySelector('.film-details__close-btn').addEventListener('click', this._closeButtonClickHandler);
   }
 }
