@@ -49,9 +49,8 @@ export default class FilmCard extends AbstractView {
 
   _filmCardClickHandler(evt) {
     evt.preventDefault();
-    if (evt.target.className === 'film-card__poster' ||
-    evt.target.className === 'film-card__title' ||
-    evt.target.className === 'film-card__comments') {
+    if (['film-card__poster', 'film-card__title', 'film-card__comments'].includes(evt.target.className))
+    {
       evt.preventDefault();
       this._callback.filmCardClick();
     }

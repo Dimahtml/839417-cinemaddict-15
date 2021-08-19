@@ -73,8 +73,8 @@ const renderFilmsList = (filmsData) => {
   if (films.length === 0) {
     render(filmsElement, new NoFilmView(), RenderPosition.BEFOREEND);
   } else {
-    render(document.querySelector('.films-list'), new FilmsListTitleView(), RenderPosition.BEFOREEND);
-    render(document.querySelector('.films-list'), new FilmsContainerView(), RenderPosition.BEFOREEND);
+    render(filmsListElement, new FilmsListTitleView(), RenderPosition.BEFOREEND);
+    render(filmsListElement, new FilmsContainerView(), RenderPosition.BEFOREEND);
   }
 
   const sortedFilmsContainer = document.querySelector('.films-list__container');
